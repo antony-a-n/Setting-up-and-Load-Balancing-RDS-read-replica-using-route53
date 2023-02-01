@@ -1,33 +1,33 @@
 
 
-If you are dealing with MYSQL with a large number of read queries such as a shopping site, you can make the performace more powerful by setting up read-replicas 
-of your master server, which is a life saver.
+If you are dealing with MYSQL with a large number of read queries such as a shopping site, you can make the performance more powerful by setting up read replicas 
+of your master server, which is a lifesaver.
 
 
-When ever a change is occured on the Master server,it will be reflected in the replicas too.
+Whenever a change occurs on the Master server, it will be reflected in the replicas too.
 
-Using Amazon RDS, you can easly setup a master & read replica model.
+Using Amazon RDS, you can easily set up a master & a read replica model.
 
-Whenever the master fails to work, one of the replicas will promoted as master for a seamless service.
+Whenever the master fails to work, one of the replicas will be promoted to master for a seamless service.
 
-There are a few adwantages of using RDS server than setting up a instance with mysql manual installation.
+There are a few advantages of using RDS server over setting up an instance with MySQL manual installation.
 
-In RDS, you don't need to install or worry about the myql server , it will be take cared by amazon.
+In RDS, you don't need to install or worry about the MySQL server, it will be taken care of by amazon.
 
 The headache is low, you can concentrate on your application.
 
-Let's make a simple mysql read replica model and load balance it with route 53.
+Let's make a simple MySQL read replica model and load balance it with route 53.
 
-Our setup will by like the following.
+Our setup will be like the following.
 
 ![Untitled Diagram drawio (3)](https://user-images.githubusercontent.com/61390678/215254401-8ec74c44-4c32-477f-911c-551e7b045c9d.png)
 
-FIrst of all we need to create master server for our application.This can be done from the RDS panel inside the aws control panel.
-You will get different type of mysql servers here, Since this is a sample setup we are proceeding with mysql server with versuion 5.7.
+FIrst of all we need to create master server for our application.This can be done from the RDS panel inside the AWS control panel.
+You will get different type of MySQL servers here, Since this is a sample setup we are proceeding with MySQL server with version 5.7.
 
 So Let's start setting up this.
 
-1.Creating master server
+1.Creating the master server
 =========================
 First we need to create a mysql master server. For that login to your RDS console.
 
