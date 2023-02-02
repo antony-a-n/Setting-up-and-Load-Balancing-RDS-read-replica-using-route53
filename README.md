@@ -10,7 +10,7 @@ Using Amazon RDS, you can easily set up a master & a read replica model.
 
 Whenever the master fails to work, one of the replicas will be promoted to master for a seamless service.
 
-There are a few advantages of using RDS server over setting up an instance with MySQL manual installation.
+There are a few advantages of using an RDS server over setting up an instance with MySQL manual installation.
 
 In RDS, you don't need to install or worry about the MySQL server, it will be taken care of by amazon.
 
@@ -29,31 +29,31 @@ So Let's start setting up this.
 
 1.Creating the master server
 =========================
-First we need to create a mysql master server. For that login to your RDS console.
+First we need to create a MySQL master server. For that log in to your RDS console.
 
 ![image](https://user-images.githubusercontent.com/61390678/215254457-1204edfa-8b78-433e-839e-725e8baec351.png)
 
 
-Click on create database and choose engine type. As mentioned before we are setting up this with mysql .You can choose the correct version which fits to you .
+Click on create database and choose engine type. As mentioned before we are setting up this with MySQL .You can choose the correct version which fits to you .
 
-Next you need to choose the environment, Since we are testing the setup we can use either free tier or test/dev environment.
+Next, you need to choose the environment, Since we are testing the setup we can use either the free tier or test/dev environment.
 
-In the next step you need to create the Master login details. The default user is admin and for the testing purpose we are setting up the password as admin12345.
+In the next step, you need to create the Master login details. The default user is admin and for testing purposes, we are setting up the password as admin12345.
 
 Choose the instance type as per your requirement. You can leave the rest of the settings, That will be fine.
 
 
-It's better to enable backup option for your RDS instance. You can configure the backup retension in the additional settings ,then click on create.
+It's better to enable backup option for your RDS instance. You can configure the backup retention in the additional settings ,then click on create.
 
 ![image](https://user-images.githubusercontent.com/61390678/215254499-8f135ffb-bce9-4191-b74c-bb494a978509.png)
 
-Once it is done you can connect to your instance via the endpoint .
+Once it is done you can connect to your instance via the endpoint.
 
 ![image](https://user-images.githubusercontent.com/61390678/215254533-63275d4b-d5e5-459e-a22a-3412bc53d899.png)
 
 ![image](https://user-images.githubusercontent.com/61390678/215254582-c7145363-d6e8-41cb-9da1-07af94c2ad17.png)
 
-Add a few entries in the db server
+Add a few entries in the DB server
 
 ```
 MySQL [(none)]> create database users;
@@ -97,7 +97,7 @@ Once it is done, you can create the read replicas of your master server.
 
 2.Creating read replica
 ======================
-In order to do this, click on your db, on the right click on actions, choose create read replica.select the source db and add a name to your database replica.
+In order to do this, click on your DB, on the right click on actions, choose create read replica.select the source db and add a name to your database replica.
 
 Complete the setup and click on create.
 
@@ -109,33 +109,33 @@ You can repeat the process as per your required number of replicas.here we are s
 ![all reps](https://user-images.githubusercontent.com/61390678/215254723-df6efdbf-82be-41c5-a711-9085eed99acd.png)
 
 
-Our next task is to loadbalance the read replicas. We can use route 53 for that. We aew using weighted policy here.
+Our next task is to load balance the read replicas. We can use route 53 for that. We are using weighted policy here.
 
 3.Setting up load-balancing with route 53
 =========================================
 
-In order to set up loadbalancing with route 53, we are setting up a subdomain called replica in our main domain.
+In order to set up load balancing with route 53, we are setting up a subdomain called replica in our main domain.
 
-Login to your aws route 53 console, choose the zone and click on add record.
+Login to your AWS route 53 console, choose the zone and click on add record.
 
-set the record name as replica,and choose the record type as CNAME, in the value section you need to enter the end point value of the read-replica 1.
+set the record name as replica,and choose the record type as CNAME, in the value section you need to enter the endpoint value of the read-replica 1.
 
 Change the TTL to  0, since we don't need to cache the values.
 
-In the routing policy ,we need to setup a routing based on weight,since we are using 2 copies of our read replica, we are setting it as 50.Then add a name to the ID.
+In the routing policy ,we need to set up a routing based on weight,since we are using 2 copies of our read replica, we are setting it as 50.Then add a name to the ID.
 ![image](https://user-images.githubusercontent.com/61390678/215254855-77260a22-8377-4ab1-8034-02640fdaee7c.png)
 
-Repeat the same process for the second replica, only need to change the end point value.Kindly wait for few minutes for the DNS propagation.
+Repeat the same process for the second replica, only need to change the endpoint value.Kindly wait for a few minutes for the DNS propagation.
 
 Once you added the records, you can see them on under the records area.
 
 ![image](https://user-images.githubusercontent.com/61390678/215254883-6ef36d5b-f385-483f-9b76-48b14be08afe.png)
 
-Now lets check the loadbalancing results.
+Now, let's check the load balancing results.
 
 ![image](https://user-images.githubusercontent.com/61390678/215254931-e9b85f28-3e72-4d49-9423-24b7f05372fa.png)
 
 
-As you could see that we are getting the results from both the servers and it shows that our setup  is up and running.
+As you could see that we are getting the results from both servers and it shows that our setup  is up and running.
 
 Thanks for reading :)
